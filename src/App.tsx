@@ -1,4 +1,5 @@
 
+import React from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -14,22 +15,24 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <Toaster />
-      <Sonner />
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="assessment" element={<Assessment />} />
-          <Route path="results" element={<Results />} />
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="check-in" element={<CheckIn />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </QueryClientProvider>
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Toaster />
+        <Sonner />
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="assessment" element={<Assessment />} />
+            <Route path="results" element={<Results />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="check-in" element={<CheckIn />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
+  </React.StrictMode>
 );
 
 export default App;
