@@ -6,7 +6,9 @@ import {
   BarChart3, 
   CalendarCheck, 
   Home, 
-  Menu
+  LogOut,
+  Menu,
+  User
 } from "lucide-react";
 import {
   Sidebar,
@@ -17,9 +19,12 @@ import {
   SidebarMenuItem,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { useAuth } from "@/context/AuthContext";
+import { Button } from "@/components/ui/button";
 
 const Navigation = () => {
   const location = useLocation();
+  const { user, signOut } = useAuth();
   
   const isActive = (path: string) => {
     return location.pathname === path;
@@ -48,6 +53,10 @@ const Navigation = () => {
     },
   ];
 
+  const handleLogout = () => {
+    signOut();
+  };
+
   return (
     <>
       <Sidebar className="bg-mint/30 backdrop-blur-sm border-r border-mint">
@@ -72,6 +81,31 @@ const Navigation = () => {
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
+            
+            {user && (
+              <>
+                <div className="mt-auto">
+                  <div className="border-t border-mint/50 my-2 pt-2"></div>
+                  <SidebarMenuItem>
+                    <div className="px-3 py-2">
+                      <div className="flex items-center gap-2 mb-2">
+                        <User className="h-4 w-4 text-muted-foreground" />
+                        <span className="text-sm font-medium truncate">{user.email}</span>
+                      </div>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="w-full flex items-center gap-2"
+                        onClick={handleLogout}
+                      >
+                        <LogOut className="h-4 w-4" />
+                        <span>Sign Out</span>
+                      </Button>
+                    </div>
+                  </SidebarMenuItem>
+                </div>
+              </>
+            )}
           </SidebarMenu>
         </SidebarContent>
       </Sidebar>
