@@ -92,6 +92,30 @@
 
   body {
     @apply bg-background text-foreground font-sans;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    overscroll-behavior: none;
+  }
+  
+  /* Apply safe area insets for devices with notches */
+  @supports (padding: max(0px)) {
+    body {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+  
+  /* Improve touch targets for mobile */
+  button, a, input, select, [role="button"] {
+    @apply md:py-2 md:px-4;
+    min-height: 44px; /* Minimum touch target size */
+  }
+  
+  /* Prevent text scaling */
+  html {
+    -webkit-text-size-adjust: 100%;
   }
 }
 
@@ -103,4 +127,56 @@
   .btn-gradient {
     @apply bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity;
   }
+  
+  /* Mobile-specific utilities */
+  .touch-button {
+    @apply active:scale-95 transition-transform;
+  }
+  
+  .mobile-card {
+    @apply rounded-xl shadow-lg border border-border/50;
+  }
+  
+  .safe-bottom {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
+  }
+  
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Fix for input zoom on mobile */
+@media screen and (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Add fade-in animation for page transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 300ms, transform 300ms;
 }

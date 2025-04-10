@@ -10,7 +10,26 @@ const config: CapacitorConfig = {
     cleartext: true
   },
   android: {
-    backgroundColor: "#D2EDD4"
+    backgroundColor: "#D2EDD4",
+    allowMixedContent: true,
+    splash: {
+      backgroundColor: "#D2EDD4",
+    },
+    navigationBarColor: "#9b87f5",
+    windowSoftInputMode: "adjustResize"
+  },
+  plugins: {
+    SplashScreen: {
+      launchAutoHide: true,
+      showSpinner: true,
+      spinnerColor: "#9b87f5",
+      androidSpinnerStyle: "large"
+    },
+    Keyboard: {
+      resize: "body",
+      style: "dark",
+      resizeOnFullScreen: true
+    }
   }
 };
 
