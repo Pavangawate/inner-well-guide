@@ -51,6 +51,11 @@ const Navigation = () => {
       path: "/check-in",
       icon: <CalendarCheck className="h-5 w-5" />,
     },
+    {
+      title: "Profile",
+      path: "/profile",
+      icon: <User className="h-5 w-5" />,
+    },
   ];
 
   const handleLogout = () => {

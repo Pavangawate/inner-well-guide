@@ -10,6 +10,7 @@ import Assessment from "./pages/Assessment";
 import Results from "./pages/Results";
 import Dashboard from "./pages/Dashboard";
 import CheckIn from "./pages/CheckIn";
+import Profile from "./pages/Profile";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import { AuthProvider } from "./context/AuthContext";
@@ -54,6 +55,7 @@ const App = () => {
                 <Route path="results" element={<Results />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="check-in" element={<CheckIn />} />
+                <Route path="profile" element={<Profile />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
             </Routes>
