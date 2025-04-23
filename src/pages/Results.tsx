@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { BarChart3, ArrowRight, Home, CalendarCheck, youtube } from "lucide-react";
+import { BarChart3, ArrowRight, Home, CalendarCheck, Youtube } from "lucide-react";
 import { calculateResults } from "@/utils/assessmentUtils";
 import { useToast } from "@/hooks/use-toast";
 
@@ -147,7 +147,7 @@ const Results = () => {
       {/* YouTube Video Suggestion Section */}
       <Card className="bg-orange-50 border-none shadow-none">
         <CardHeader className="flex flex-row items-center gap-2 pb-2">
-          <youtube className="h-5 w-5 text-red-500" />
+          <Youtube className="h-5 w-5 text-red-500" />
           <CardTitle className="text-lg">
             Take a mindful break – Watch this relaxing meditation video
           </CardTitle>
