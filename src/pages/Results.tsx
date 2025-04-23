@@ -8,6 +8,55 @@ import { BarChart3, ArrowRight, Home, CalendarCheck, Youtube } from "lucide-reac
 import { calculateResults } from "@/utils/assessmentUtils";
 import { useToast } from "@/hooks/use-toast";
 
+// Video suggestions for different results
+const VIDEO_SUGGESTIONS = [
+  {
+    key: "highStress",
+    match: (r) => r.stressLevel >= 7,
+    url: "https://www.youtube.com/embed/W19PdslW7iw", // "10-Minute Stress Relief" by Goodful
+    title: "Feeling Stressed? Try This Stress Relief Meditation",
+  },
+  {
+    key: "highAnxiety",
+    match: (r) => r.anxietyLevel >= 7,
+    url: "https://www.youtube.com/embed/MIr3RsUWrdo", // "Guided Meditation for Anxiety & Stress"
+    title: "Reduce Anxiety – Guided Meditation for Anxiety & Stress",
+  },
+  {
+    key: "highDepression",
+    match: (r) => r.depressionRisk >= 7,
+    url: "https://www.youtube.com/embed/ZToicYcHIOU", // "Mindfulness for Depression" - Mindful Movement
+    title: "Support for Low Mood – Mindfulness Meditation",
+  },
+  {
+    key: "wellness",
+    match: (r) => r.wellnessScore >= 7,
+    url: "https://www.youtube.com/embed/inpok4MKVLM", // "Mindfulness Meditation" - The Honest Guys
+    title: "Maintain Wellness – Relax with This Mindfulness Meditation",
+  },
+  // Fallback (displayed if nothing else matches)
+  {
+    key: "default",
+    match: () => true,
+    url: "https://www.youtube.com/embed/inpok4MKVLM", // fallback (same as above)
+    title: "Take a mindful break – Watch this relaxing meditation video",
+  },
+];
+
+function getSuggestedVideo(results) {
+  // Find the first matching suggestion
+  for (const suggestion of VIDEO_SUGGESTIONS) {
+    if (suggestion.match(results)) {
+      return { url: suggestion.url, title: suggestion.title };
+    }
+  }
+  // Fallback in case nothing matches, but this should never happen due to "default"
+  return {
+    url: "https://www.youtube.com/embed/inpok4MKVLM",
+    title: "Take a mindful break – Watch this relaxing meditation video",
+  };
+}
+
 interface ResultData {
   stressLevel: number;
   anxietyLevel: number;
@@ -16,8 +65,6 @@ interface ResultData {
   suggestions: string[];
   summary: string;
 }
-
-const YOUTUBE_VIDEO_URL = "https://www.youtube.com/embed/inpok4MKVLM"; // Mindfulness Meditation - "The Honest Guys"
 
 const Results = () => {
   const [results, setResults] = useState<ResultData | null>(null);
@@ -75,6 +122,9 @@ const Results = () => {
       </div>
     );
   }
+
+  // Get recommended video for this result
+  const suggestedVideo = getSuggestedVideo(results);
 
   return (
     <div className="max-w-3xl mx-auto py-6 space-y-8 animate-fade-in">
@@ -149,7 +199,7 @@ const Results = () => {
         <CardHeader className="flex flex-row items-center gap-2 pb-2">
           <Youtube className="h-5 w-5 text-red-500" />
           <CardTitle className="text-lg">
-            Take a mindful break – Watch this relaxing meditation video
+            {suggestedVideo.title}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -157,8 +207,8 @@ const Results = () => {
             <iframe
               width="100%"
               height="100%"
-              src={YOUTUBE_VIDEO_URL}
-              title="Mindfulness Meditation for Relaxation"
+              src={suggestedVideo.url}
+              title={suggestedVideo.title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               className="w-full h-full rounded-xl border-none"
