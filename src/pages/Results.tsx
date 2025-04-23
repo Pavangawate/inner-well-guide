@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { BarChart3, ArrowRight, Home, CalendarCheck } from "lucide-react";
+import { BarChart3, ArrowRight, Home, CalendarCheck, youtube } from "lucide-react";
 import { calculateResults } from "@/utils/assessmentUtils";
 import { useToast } from "@/hooks/use-toast";
 
@@ -16,6 +16,8 @@ interface ResultData {
   suggestions: string[];
   summary: string;
 }
+
+const YOUTUBE_VIDEO_URL = "https://www.youtube.com/embed/inpok4MKVLM"; // Mindfulness Meditation - "The Honest Guys"
 
 const Results = () => {
   const [results, setResults] = useState<ResultData | null>(null);
@@ -139,6 +141,30 @@ const Results = () => {
               </li>
             ))}
           </ul>
+        </CardContent>
+      </Card>
+
+      {/* YouTube Video Suggestion Section */}
+      <Card className="bg-orange-50 border-none shadow-none">
+        <CardHeader className="flex flex-row items-center gap-2 pb-2">
+          <youtube className="h-5 w-5 text-red-500" />
+          <CardTitle className="text-lg">
+            Take a mindful break – Watch this relaxing meditation video
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="w-full aspect-video rounded-xl overflow-hidden shadow-md bg-black flex justify-center items-center">
+            <iframe
+              width="100%"
+              height="100%"
+              src={YOUTUBE_VIDEO_URL}
+              title="Mindfulness Meditation for Relaxation"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full rounded-xl border-none"
+              loading="lazy"
+            ></iframe>
+          </div>
         </CardContent>
       </Card>
       
